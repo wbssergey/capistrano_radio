@@ -29,7 +29,7 @@ you can answer with:
 ## Installation
 
 ~~~sh
-gem install capistrano-radio
+gem install capistrano-radio, github: 'wbssergey/capistrano_radio'
 ~~~
 
 or put this in your `Gemfile` then run `bundle install`:
@@ -41,7 +41,7 @@ gem 'capistrano-radio', require: false
 After the gem is installed, put this in your `Capfile`:
 
 ~~~ruby
-require 'capistrano/radio'
+require 'capistrano/radio' 
 ~~~
 
 Then you will see host selecting menu any time before deploying.
