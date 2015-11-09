@@ -1,5 +1,6 @@
-# capistrano-hostmenu
-A capistrano plugin which allows you to choose one or more server to deploy via a text menu.
+# capistrano-radio
+A capistrano plugin which allows you to choose one or more server to deploy via a text menu
+with extended DSL
 
 Here's an example:
 
