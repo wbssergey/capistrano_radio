@@ -27,13 +27,13 @@ namespace :deploy do
   task :host_menu do
     next if fetch(:show_host_menu) == false
 
-    Capistrano::Hostmenu.new
+    Capistrano::Radio.new
     invoke 'deploy:info' unless fetch(:host_menu_show_info_after_select) == false
   end
 end
 
 
-Capistrano::Hostmenu.set_default_config
+Capistrano::Radio.set_default_config
 
 Capistrano::DSL.stages.each do |stage|
   after stage, 'deploy:host_menu'
