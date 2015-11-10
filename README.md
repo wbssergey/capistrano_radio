@@ -51,12 +51,11 @@ Then you will see host selecting menu any time before deploying.
 set these variables in your deploy config (commonly `deploy.rb`)
 
 ~~~ruby
-set :host_menu_default_selection,         :all # or :first, 1
-set :host_menu_prompt_msg,                'Please choose which server(s) to deploy:'.blue
-set :host_menu_caption_of_all,            'all'
-set :host_menu_caption_of_default,        '(default)'
-set :host_menu_invalid_range_msg,         'Please provide a number in (1..%d)'.red
-set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.red
-set :radio_data                           '/home'
+      set :radio_data,                          'deploy1/radio_admin'
+      set :radio_gemfile,                       '~/capistrano3_deployment'   
+      set :radio_myrvm,                         '~/.myrvm'   
+      set :radio_uploadfile,                    '~/radioadmin.sql'
+      set :radio_mysqluser,                     'radio'
+      set :radio_mysqlpwd,                      '' # ask   
 ~~~
 # capistrano_radio
