@@ -8,11 +8,11 @@ namespace :deploy do
     puts "branch: #{fetch(:branch).to_s.bold.green}"
     puts "server: #{roles(:all).map(&:hostname).join("\n        ").red}"
     puts "radio_data: #{fetch(:radio_data)}"
-    puts ":radio_gemfile: #{fetch(:radio_gemfile)}"   
-    puts ":radio_myrvm:   #{fetch(:radio_myrvm)}"
-    puts ":radio_uploadfile: #{fetch(:radio_uploadfile)}"
-    puts ":radio_mysqluser: #{fetch(:radio_mysqluser)}"
-    puts ":radio_mysqlpwd: #{fetch(:radio_mysqlpwd)}"   
+    puts "radio_gemfile: #{fetch(:radio_gemfile)}"   
+    puts "radio_myrvm:   #{fetch(:radio_myrvm)}"
+    puts "radio_uploadfile: #{fetch(:radio_uploadfile)}"
+    puts "radio_mysqluser: #{fetch(:radio_mysqluser)}"
+    puts "radio_mysqlpwd: #{fetch(:radio_mysqlpwd)} ask"   
     puts "--" * 50
   end
 
