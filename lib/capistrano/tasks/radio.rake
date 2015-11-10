@@ -3,10 +3,16 @@ namespace :deploy do
   desc 'print environment variables'
   task :info do
     puts "--" * 50
-    puts "About to deploy, check your seatbelt~"
+    puts "About to deploy, check your parameters~"
     puts "env:    #{fetch(:rails_env).to_s.bold.blue}"
     puts "branch: #{fetch(:branch).to_s.bold.green}"
     puts "server: #{roles(:all).map(&:hostname).join("\n        ").red}"
+    puts "radio_data: #{fetch(:radio_data)}"
+    puts ":radio_gemfile: #{fetch(:radio_gemfile)}"   
+    puts ":radio_myrvm:   #{fetch(:radio_myrvm)}"
+    puts ":radio_uploadfile: #{fetch(:radio_uploadfile)}"
+    puts ":radio_mysqluser: #{fetch(:radio_mysqluser)}"
+    puts ":radio_mysqlpwd: #{fetch(:radio_mysqlpwd)}"   
     puts "--" * 50
   end
 
@@ -24,8 +30,8 @@ namespace :deploy do
         Please enter host_numbers (3):
         ~~~
     DESC
-  task :host_menu do
-    next if fetch(:show_host_menu) == false
+  task :radio_menu do
+    next if fetch(:show_radio_menu) == false
 
     Capistrano::Radio.new
     invoke 'deploy:info' unless fetch(:host_menu_show_info_after_select) == false
@@ -36,5 +42,5 @@ end
 Capistrano::Radio.set_default_config
 
 Capistrano::DSL.stages.each do |stage|
-  after stage, 'deploy:host_menu'
+  after stage, 'deploy:radio_menu'
 end

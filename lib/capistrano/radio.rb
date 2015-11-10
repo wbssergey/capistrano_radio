@@ -11,7 +11,12 @@ module Capistrano
       set :host_menu_caption_of_default,        '(default)'
       set :host_menu_invalid_range_msg,         'Please provide a number in (1..%d)'.red
       set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.red
-      set :radio_data,                          '/home'
+      set :radio_data,                          'deploy1/radio_admin'
+      set :radio_gemfile,                       '~/capistrano3_deployment'   
+      set :radio_myrvm,                         '~/.myrvm'   
+      set :radio_uploadfile,                    '~/radioadmin.sql'
+      set :radio_mysqluser,                     'radio'
+      set :radio_mysqlpwd,                      '' # ask   
     end
 
     def initialize
