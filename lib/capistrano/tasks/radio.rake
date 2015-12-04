@@ -4,8 +4,8 @@ namespace :deploy do
   task :info do
     puts "--" * 50
     puts "About to deploy, check your parameters~"
-    puts "env:    #{fetch(:rails_env).to_s.bold.blue}"
-    puts "branch: #{fetch(:branch).to_s.bold.green}"
+    puts "env:    #{fetch(:rails_env).to_s.bold}"
+    puts "branch: #{fetch(:branch).to_s.bold}"
     puts "server: #{roles(:all).map(&:hostname).join("\n        ")}"
     puts "radio_data: #{fetch(:radio_data)}"
     puts "radio_gemfile: #{fetch(:radio_gemfile)}"   
