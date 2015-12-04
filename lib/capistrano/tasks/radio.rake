@@ -6,7 +6,7 @@ namespace :deploy do
     puts "About to deploy, check your parameters~"
     puts "env:    #{fetch(:rails_env).to_s.bold.blue}"
     puts "branch: #{fetch(:branch).to_s.bold.green}"
-    puts "server: #{roles(:all).map(&:hostname).join("\n        ").red}"
+    puts "server: #{roles(:all).map(&:hostname).join("\n        ")}"
     puts "radio_data: #{fetch(:radio_data)}"
     puts "radio_gemfile: #{fetch(:radio_gemfile)}"   
     puts "radio_myrvm:   #{fetch(:radio_myrvm)}"
