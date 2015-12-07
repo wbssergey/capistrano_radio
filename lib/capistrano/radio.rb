@@ -1,5 +1,3 @@
-require 'rake'
-require "capistrano/DSL"
 
 
 module Capistrano
