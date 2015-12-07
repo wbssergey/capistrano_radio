@@ -21,7 +21,7 @@ module Capistrano
       set :radio_uploadfile,                    '~/radioadmin.sql'
       set :radio_mysqluser,                     'radio'
       set :radio_mysqlpwd,                      '' # ask
-      set :array_repo[],                        'git1,git2'   
+      set :array_repo,                          'git1,git2'   
     end
 
     def initialize
