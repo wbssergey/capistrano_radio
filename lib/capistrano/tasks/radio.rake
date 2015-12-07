@@ -12,7 +12,8 @@ namespace :deploy do
     puts "radio_myrvm:   #{fetch(:radio_myrvm)}"
     puts "radio_uploadfile: #{fetch(:radio_uploadfile)}"
     puts "radio_mysqluser: #{fetch(:radio_mysqluser)}"
-    puts "radio_mysqlpwd: #{fetch(:radio_mysqlpwd)} ask"   
+    puts "radio_mysqlpwd: #{fetch(:radio_mysqlpwd)} ask" 
+    puts "array_repo, #{fetch(:array_repo)}"
     puts "--" * 50
   end
 
