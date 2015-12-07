@@ -1,3 +1,7 @@
+require 'rake'
+require "capistrano/DSL"
+
+
 module Capistrano
 
   class Radio
@@ -16,7 +20,8 @@ module Capistrano
       set :radio_myrvm,                         '~/.myrvm'   
       set :radio_uploadfile,                    '~/radioadmin.sql'
       set :radio_mysqluser,                     'radio'
-      set :radio_mysqlpwd,                      '' # ask   
+      set :radio_mysqlpwd,                      '' # ask
+      set :array_repo[],                        'git1,git2'   
     end
 
     def initialize
@@ -24,7 +29,9 @@ module Capistrano
         prompt_menu default: fetch(:host_menu_default_selection)
       end
     end
-
+    def hello
+      puts "hello"
+    end  
     def prompt_menu default: :all
       puts fetch(:host_menu_prompt_msg)
 
@@ -97,6 +104,22 @@ module Capistrano
             hosts.include?(srv.hostname)
           end
         end
+=begin
+        def add_roles(roles)
+           Array(roles).each { |role| add_role(role) }
+           self
+         end
+
+       alias roles= add_roles
+
+       def add_role(role)
+         roles.add role.to_sym
+         self
+       end
+        def set_repos
+          rps=Array.new();
+        end
+=end          
       end
 
   end
