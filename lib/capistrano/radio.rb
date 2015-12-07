@@ -44,7 +44,7 @@ module Capistrano
               else
                 "[%d] %s" % [i+1, host]
               end
-        puts "  " << cap.green
+        puts "  " << cap
       end
 
       ask :host_numbers, default.to_s
