@@ -13,7 +13,7 @@ namespace :deploy do
     puts "radio_uploadfile: #{fetch(:radio_uploadfile)}"
     puts "radio_mysqluser: #{fetch(:radio_mysqluser)}"
     puts "radio_mysqlpwd: #{fetch(:radio_mysqlpwd)} ask" 
-    # puts "array_repo, #{fetch(:array_repo).to_s.bold}"
+    puts "array_repo, #{fetch(:array_repo).to_s.bold}"
     puts "--" * 50
   end
 
