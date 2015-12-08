@@ -38,11 +38,11 @@ module Capistrano
 
       (deploy_hosts + [fetch(:host_menu_caption_of_all)]).each_with_index do |host, i|
         shost=host.to_s.split(',')
-        u=host.username
+        host.inspect
         cap = if i == default - 1
                 "[%d] %s %s" % [i+1, host, default_cap]
               else
-                "[%d] %s@%-25s %s" % [i+1, u, shost[0], shost[1]]
+                "[%d] %s@%-25s %s" % [i+1, host.username, shost[0], shost[1]]
               end
         puts "  " << cap
       end
