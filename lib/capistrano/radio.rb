@@ -37,10 +37,11 @@ module Capistrano
       default_cap = fetch(:host_menu_caption_of_default)
 
       (deploy_hosts + [fetch(:host_menu_caption_of_all)]).each_with_index do |host, i|
+        shost=host.slice(':')
         cap = if i == default - 1
                 "[%d] %s %s" % [i+1, host, default_cap]
               else
-                "[%d] %s" % [i+1, host]
+                "[%d] %-25s %s" % [i+1, shost[0], shost[1]]
               end
         puts "  " << cap
       end
