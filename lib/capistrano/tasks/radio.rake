@@ -15,6 +15,13 @@ namespace :deploy do
     puts "radio_mysqlpwd: #{fetch(:radio_mysqlpwd)} ask" 
     puts "array_repo, #{fetch(:array_repo).to_s.bold}"
     puts "--" * 50
+
+# after selection done - truncate long role names to ssh <user@domain>
+  release_roles(:all).map do |h|
+           sh=h.to_s.split(',')
+           h.hostname=sh[0]
+         end
+
   end
 
   desc <<-DESC

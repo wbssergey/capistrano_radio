@@ -7,12 +7,14 @@ module Capistrano
     include ::Capistrano::DSL
 
     def self.set_default_config
-      set :host_menu_prompt_msg,                'Please choose which server(s) to deploy:'
-      set :host_menu_default_selection,         :all # or :first, 1
-      set :host_menu_caption_of_all,            'all'
-      set :host_menu_caption_of_default,        '(default)'
-      set :host_menu_invalid_range_msg,         'Please provide a number in (1..%d)'
-      set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'
+
+set :host_menu_default_selection,          -1  # or :first, 1
+set :host_menu_prompt_msg,                'Please choose which server(s) to deploy:'
+set :host_menu_caption_of_all,            'apply all (dangerous)'.red
+set :host_menu_caption_of_default,        '(default)'
+set :host_menu_invalid_range_msg,         'Please provide a number in (1..%d)'.red
+set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.red
+
       set :radio_data,                          'deploy1/radio_admin'
       set :radio_gemfile,                       '~/capistrano3_deployment'   
       set :radio_myrvm,                         '~/.myrvm'   
@@ -38,17 +40,21 @@ module Capistrano
 
       (deploy_hosts + [fetch(:host_menu_caption_of_all)]).each_with_index do |host, i|
         shost=host.to_s.split(',')
-  
+        su=''
+        if not host.to_s == fetch(:host_menu_caption_of_all)
+        su=host.username  
+        end
         cap = if i == default - 1
-                "[%d] %s %s" % [i+1, host, default_cap]
+                "[%d]%s" % [i+1, default_cap]
               else
-                "[%d] %s@%-25s %s" % [i+1, host.username, shost[0], shost[1]]
+                "[%d] %-10s% -15s %-15s %s" % [i+1, shost[2], su, shost[0], shost[1]]
               end
         puts "  " << cap
       end
 
       ask :host_numbers, default.to_s
       set_hosts
+
     end
 
     private
@@ -72,6 +78,7 @@ module Capistrano
 
       def deploy_hosts
         release_roles(:all)
+        
       end
 
       def selection_for_all
@@ -91,7 +98,7 @@ module Capistrano
         end
 
         unless ids.include?(selection_for_all)
-          set_host_filter ids.map {|i| deploy_hosts[i-1].hostname}
+          set_host_filter ids.map {|i| deploy_hosts[i-1].hostname} #
         end
       end
 
@@ -104,22 +111,6 @@ module Capistrano
             hosts.include?(srv.hostname)
           end
         end
-=begin
-        def add_roles(roles)
-           Array(roles).each { |role| add_role(role) }
-           self
-         end
-
-       alias roles= add_roles
-
-       def add_role(role)
-         roles.add role.to_sym
-         self
-       end
-        def set_repos
-          rps=Array.new();
-        end
-=end          
       end
 
   end
