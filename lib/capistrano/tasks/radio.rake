@@ -30,7 +30,6 @@ namespace :deploy do
            h.hostname=sh[0]
          end
 
-  end
 
   desc <<-DESC
         Prompt a text based list menu for user to select. \
