@@ -24,13 +24,6 @@ namespace :deploy do
 #    puts "all_repo, #{fetch(:all_repo).to_s.bold}"
     puts "--" * 50
 
-# after selection done - truncate long role names to ssh <user@domain>
-  release_roles(:all).map do |h|
-           sh=h.to_s.split(',')
-           h.hostname=sh[0]
-         end
-
-
   desc <<-DESC
         Prompt a text based list menu for user to select. \
         Following changes will only be applied on selected servers.
@@ -45,6 +38,16 @@ namespace :deploy do
         Please enter host_numbers (3):
         ~~~
     DESC
+
+    
+# after selection done - truncate long role names to ssh <user@domain>
+  release_roles(:all).map do |h|
+           sh=h.to_s.split(',')
+           h.hostname=sh[0]
+         end
+
+  end
+
   task :radio_menu do
     next if fetch(:show_radio_menu) == false
 
@@ -59,4 +62,4 @@ Capistrano::Radio.set_default_config
 Capistrano::DSL.stages.each do |stage|
   after stage, 'deploy:radio_menu'
 end
-~                
+              
