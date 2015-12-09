@@ -40,6 +40,7 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
 
       (deploy_hosts + [fetch(:host_menu_caption_of_all)]).each_with_index do |host, i|
         shost=host.to_s.split(',')
+        set :array_repo, fetch(:array_repo)+","+shost[3]
         su=''
         if not host.to_s == fetch(:host_menu_caption_of_all)
         su=host.username  
@@ -48,7 +49,7 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
                 "[%d]%s" % [i+1, default_cap]
               else
                 "[%d] %-10s% -15s %-15s %s" % [i+1, shost[2], su, shost[0], shost[1]]
-                set :array_repo, fetch(:array_repo)+","+shost[3]
+                
               end
         puts "  " << cap
       end
