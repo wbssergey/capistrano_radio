@@ -21,7 +21,7 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
       set :radio_uploadfile,                    '~/radioadmin.sql'
       set :radio_mysqluser,                     'radio'
       set :radio_mysqlpwd,                      '' # ask
-      set :array_repo,                          'git1,git2'   
+      set :array_repo,                          ''   
     end
 
     def initialize
@@ -48,6 +48,7 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
                 "[%d]%s" % [i+1, default_cap]
               else
                 "[%d] %-10s% -15s %-15s %s" % [i+1, shost[2], su, shost[0], shost[1]]
+                set :array_repo, fetch(:array_repo)+","+shost[3]
               end
         puts "  " << cap
       end
