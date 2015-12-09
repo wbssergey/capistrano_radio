@@ -2,18 +2,26 @@ namespace :deploy do
 
   desc 'print environment variables'
   task :info do
+
+
+  release_roles(:all).map do |h|
+         #  sh=h.to_s.split(',')
+      set :array_repo,  fetch(:array_repo).push(h.to_s) # sh[3]) #
+         end
+
     puts "--" * 50
     puts "About to deploy, check your parameters~"
     puts "env:    #{fetch(:rails_env).to_s.bold}"
     puts "branch: #{fetch(:branch).to_s.bold}"
     puts "server: #{roles(:all).map(&:hostname).join("\n        ")}"
     puts "radio_data: #{fetch(:radio_data)}"
-    puts "radio_gemfile: #{fetch(:radio_gemfile)}"   
+    puts "radio_gemfile: #{fetch(:radio_gemfile)}"
     puts "radio_myrvm:   #{fetch(:radio_myrvm)}"
     puts "radio_uploadfile: #{fetch(:radio_uploadfile)}"
     puts "radio_mysqluser: #{fetch(:radio_mysqluser)}"
-    puts "radio_mysqlpwd: #{fetch(:radio_mysqlpwd)} ask" 
+    puts "radio_mysqlpwd: #{fetch(:radio_mysqlpwd)} ask"
     puts "array_repo, #{fetch(:array_repo).to_s.bold}"
+#    puts "all_repo, #{fetch(:all_repo).to_s.bold}"
     puts "--" * 50
 
 # after selection done - truncate long role names to ssh <user@domain>
@@ -52,3 +60,4 @@ Capistrano::Radio.set_default_config
 Capistrano::DSL.stages.each do |stage|
   after stage, 'deploy:radio_menu'
 end
+~                
