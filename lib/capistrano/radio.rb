@@ -1,5 +1,6 @@
 
 
+
 module Capistrano
 
   class Radio
@@ -16,12 +17,13 @@ set :host_menu_invalid_range_msg,         'Please provide a number in (1..%d)'.r
 set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.red
 
       set :radio_data,                          'deploy1/radio_admin'
-      set :radio_gemfile,                       '~/capistrano3_deployment'   
-      set :radio_myrvm,                         '~/.myrvm'   
+      set :radio_gemfile,                       '~/capistrano3_deployment'
+      set :radio_myrvm,                         '~/.myrvm'
       set :radio_uploadfile,                    '~/radioadmin.sql'
       set :radio_mysqluser,                     'radio'
       set :radio_mysqlpwd,                      '' # ask
-      set :array_repo,                          ''   
+      set :array_repo,                          []
+#      set :all_repo,                            []
     end
 
     def initialize
@@ -31,7 +33,7 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
     end
     def hello
       puts "hello"
-    end  
+    end
     def prompt_menu default: :all
       puts fetch(:host_menu_prompt_msg)
 
@@ -40,16 +42,21 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
 
       (deploy_hosts + [fetch(:host_menu_caption_of_all)]).each_with_index do |host, i|
         shost=host.to_s.split(',')
-        set :array_repo, fetch(:array_repo)+","+shost[3]
+        repo='?.git'
+        unless shost[3].nil?
+         repo=shost[3]
+        end
+       # set :array_repo, fetch(:array_repo)+","+repo
+      #  set :all_repo, fetch(:all_repo).push(repo)
         su=''
         if not host.to_s == fetch(:host_menu_caption_of_all)
-        su=host.username  
+        su=host.username
         end
         cap = if i == default - 1
                 "[%d]%s" % [i+1, default_cap]
               else
                 "[%d] %-10s% -15s %-15s %s" % [i+1, shost[2], su, shost[0], shost[1]]
-                
+
               end
         puts "  " << cap
       end
@@ -73,14 +80,13 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
           1
         end
       end
-
-      def max_selection
+            def max_selection
         deploy_hosts.size + 1
       end
 
       def deploy_hosts
         release_roles(:all)
-        
+
       end
 
       def selection_for_all
@@ -102,6 +108,7 @@ set :host_menu_invalid_multi_choose_msg,  'Do you mean to choose all servers?'.r
         unless ids.include?(selection_for_all)
           set_host_filter ids.map {|i| deploy_hosts[i-1].hostname} #
         end
+
       end
 
       def set_host_filter hosts
