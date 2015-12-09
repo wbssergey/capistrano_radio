@@ -1,23 +1,40 @@
-# capistrano-radio release 2
-A capistrano plugin which allows you to choose one or more server to deploy via a text menu with extended DSL
+# capistrano-radio release legacy
+A capistrano plugin which allows you to choose one or more applcation to deploy via a text menu with extended DSL
 
 Here's an example:
 
 In you deploy config:
 
 ~~~ruby
-server 'example1.com', user: "#{fetch(:deploy_user)}", roles: %w{web app}
-server 'example2.com', user: "#{fetch(:deploy_user)}", roles: %w{web app}
+role :myred1, %w{r@b.strangemic.net,rogersradio,RUBY}
+role :myred2, %w{r@b.strangemic.net,gamecentrelive,GAME}
+
+role :mygreen1, %w{deploy1@c.strangemic.net,stats.sportsnet,WP}
+role :mygreen2, %w{root@c.strangemic.net,texture,WP}
+role :mygreen3, %w{deploy1@c.strangemic.net,rogersradio,RUBY}
+role :mygreen4, %w{deploy1@c.strangemic.net,gamecentrelive,GAME}
+
+role :myblue1, %w{ec2-user@1.2.3.4,texture,WP}
+role :myblue2, %w{ec2-user@1.2.3.4,rogersradio,RUBY}
+role :myblue3, %w{ec2-user@1.2.3.4,gamecentrelive,GAME}
 ~~~
 
 when you run `cap deploy` or `cap deploy:start` or other deploy tasks, you will see a menu:
 
 ~~~sh
+jump# cap train deploy
 Please choose which server(s) to deploy:
-  [1] example1.com
-  [2] example2.com
-  [3] all (default)
-Please enter host_numbers (3):
+  [1] RUBY      r               b.strangemic.net rogersradio
+  [2] GAME      r               b.strangemic.net gamecentrelive
+  [3] WP        deploy1         c.strangemic.net stats.sportsnet
+  [4] WP        r               c.strangemic.net texture
+  [5] RUBY      deploy1         c.strangemic.net rogersradio
+  [6] GAME      deploy1         c.strangemic.net gamecentrelive
+  [7] WP        ec2-user        1.2.3.4    texture
+  [8] RUBY      ec2-user        1.2.3.4    rogersradio
+  [9] GAME      ec2-user        1.2.3.4    gamecentrelive
+  [10]                           apply all (dangerous) 
+Please enter host_numbers (-1): 
 ~~~
 
 you can answer with:
@@ -44,18 +61,3 @@ After the gem is installed, put this in your `Capfile`:
 require 'capistrano/radio' 
 ~~~
 
-Then you will see host selecting menu any time before deploying.
-
-## Configurations
-
-set these variables in your deploy config (commonly `deploy.rb`)
-
-~~~ruby
-      set :radio_data,                          'deploy1/radio_admin'
-      set :radio_gemfile,                       '~/capistrano3_deployment'   
-      set :radio_myrvm,                         '~/.myrvm'   
-      set :radio_uploadfile,                    '~/radioadmin.sql'
-      set :radio_mysqluser,                     'radio'
-      set :radio_mysqlpwd,                      '' # ask   
-~~~
-# capistrano_radio
